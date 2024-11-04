@@ -1,0 +1,462 @@
+
+
+
+flying(6)                                               flying(6)
+
+
+NNAAMMEE
+       flying - pool/snooker/carrom/hockey/curling simulator
+
+SSYYNNOOPPSSIISS
+       ffllyyiinngg [-options ...]
+
+DDEESSCCRRIIPPTTIIOONN
+       _f_l_y_i_n_g  was  actually meant to be a test program to imple-
+       ment some classes to control flying objects on the screen.
+       After  the  classes were implemented there was the need of
+       some real tests and a game of billard was just  the  first
+       idea.  By  now,  many  subgame-classes are already more or
+       less completely defined. They can either  be  selected  by
+       the  options  or  by  making a link to the original with a
+       special name.  Unfortunately  having  so  many  subclasses
+       means  that  the  classes  themselves can't be too compli-
+       cated. (There's just too less  time  in  the  world  :(  )
+       Therefore  the  games don't have any rules yet. This means
+       you have to play fair and watch your opponent.
+
+       Anyway, the main thing was animation and  controlling  and
+       that  works  fine,  especially with the --ddeelluuxxee version of
+       pool-billard. Since the  main  intention  was  to  get  an
+       excellent  billard  game, I will mainly describe the pool-
+       version in the following pages.  The  other  subgames  are
+       similar  to  control  (and there are no special rules any-
+       way).
+
+
+SSTTAATTUUSS
+       The flying package contains many subgames, that  are  more
+       or  less  in an experimental stage. Here is a tiny summary
+       of version 6
+
+
+   PPooooll,, SSnnooookkeerr,, CCaannnnoonn
+       As already mentioned above, pool is the most comprehensive
+       subgame,  especially due to the deluxe version. It is very
+       playable even though spin is not implemented.  Rules  will
+       have to be added in later revision.
+
+   CCaarrrroomm
+       Very  similar  to  pool, just with another background (and
+       more friction)
+
+   HHoocckkeeyy
+       experimental air-hockey implementation (see option _-_i_n_2 to
+       set  the  display  for  the  input-pointer  for the second
+       player), which is worth looking at because of  the  uncon-
+       ventional  control  mechanism.  The players have to select
+       one of the big discs before they can play.
+
+   CCuurrlliinngg
+       experimental curling implementation, which  is  even  more
+
+
+
+X Version 11               18 July 1995                         1
+
+
+
+
+
+flying(6)                                               flying(6)
+
+
+       worth  to  look  at  because of the control: Hold the _l_e_f_t
+       button to take one curl.  Move it in the  right  direction
+       and let it go...
+
+
+CCOONNTTRROOLLSS
+       The pointer (or pointers) run fully simultaenously and are
+       like the hand of the players. At every time it's  possible
+       to  pick one of the objects to select it as the cue-object
+       (It should better be the cueball, if  you  don't  want  to
+       lose  some  friends).  After you have aimed in the desired
+       direction there are 2 ways to play the ball:
+
+       easy:     Press and hold down the _l_e_f_t button to  increase
+                 the  strength  of your shot.  Release the button
+                 to shoot. There is a maximum power! If you  hold
+                 down  the  button too long, you will just make a
+                 very poor shot as a penalty.
+
+
+       tricky:   You might notice on that the queue stays on  the
+                 table  for  a  moment. This is a problem, if you
+                 are very close to the cushion. Then, the cueball
+                 might  hits  the  queue  again. Therefor you can
+                 alternatively gather power by pressing the _r_i_g_h_t
+                 pointer button and shot by simultaenously press-
+                 ing the _l_e_f_t button. When you release  the  _l_e_f_t
+                 button after the shot, the queue is removed from
+                 the table and you can therefore remove  it  ear-
+                 lier.
+
+       After  shooting,  you can only wait and see what will hap-
+       pen. By the way, there actually are some tiny rules imple-
+       mented.  The billard classes know, that cueballs shouldn't
+       stay in the pocket after a shot. When they are back on the
+       table, you can roll them to the position you like by using
+       the _r_i_g_h_t pointer button.
+
+       By the way, if you picked  the  wrong  ball  as  the  cue-
+       object,  you  can get rid of it by just clicking the _r_i_g_h_t
+       button once.
+
+       To overcome the hurdle of the mouse  resolution,  you  can
+       use  the  _m_i_d_d_l_e pointer button for fine adjustments. With
+       that help, you can actually position the  mouse  in  frac-
+       tions  of  pixels. To make shoting a thrill, you've got to
+       release the button again for  shoting.  (The  fraction  is
+       stored in that case)
+
+   SSuummmmaarryy
+       left    select cueball
+               introduce easy shot
+               pick ball from pocket
+
+
+
+
+X Version 11               18 July 1995                         2
+
+
+
+
+
+flying(6)                                               flying(6)
+
+
+       middle  fine adjustment via interpixel motion
+
+
+       right   deselect cueball
+               introduce tricky shot
+               move ball
+
+
+   AAddddiittiioonnaall KKeeyy--CCoonnttrroollss
+       SPACE   reset game
+
+
+       Q,Esc   quit game
+
+
+       R       restart game
+
+
+       ^L      redraw screen
+
+
+OOPPTTIIOONNSS
+   XX1111
+       --ssiizzee _n window size
+
+       --rroooott   full screen (the default)
+
+       --nnoo__oovveerrrriiddee
+               don't use OverrideRedirect for the background win-
+               dow, when the -root option is used.
+
+       --nnoo__ggrraabbss
+               don't grab the server, when problems with the col-
+               ormap occur.
+
+       --ddiissppllaayy _n_a_m_e
+               the  output-display  (default is contents of $DIS-
+               PLAY)
+
+       --iinn11 _n_a_m_e
+               name of the main display for  input  (default  is:
+               same as the output display)
+
+       --iinn22 _n_a_m_e
+               name of a second input display. If given, a second
+               pointer object will be installed  in  the  program
+               and  can be controlled by the pointer of the given
+               display. (The pointer will get invisible  on  that
+               display as it is grabbed anything)
+
+               As  for every display connection, you have to make
+               sure that all displays are  accessible  from  your
+               host. (by using _x_h_o_s_t ...)
+
+
+
+
+X Version 11               18 July 1995                         3
+
+
+
+
+
+flying(6)                                               flying(6)
+
+
+       --ssoouunndd  a  subprocess  is started, which gives some clicks
+               when balls hit together,  but  the  smooth  motion
+               gets  distorted  in that way, at least on my work-
+               station.
+
+   AADDDDIITTIIOONNAALL
+       --ddeelluuxxee a special version of the pool with animated  balls
+               by  using  hundreds  of precalculated pixmaps. The
+               construction of the pixmaps at game start is  very
+               time consuming. Therefore the computed pixmaps are
+               cached in files  _f_l_y_*_-_*_._d_t_a  in  a  special  data-
+               directory (usually just /tmp) for reusability.
+
+       --ttvv     since  the  deluxe-option  is default, this can be
+               used to switch back to the set of TV-balls.
+
+       --fftt _n   sets the size of the table in  pool-billard  to  _n
+               foot.  The  value  should  be in a range of 6 to 9
+               feet. If not given, the size is selected randomly,
+               except  in the deluxe-version, where it default to
+               8 feet.  This was done because  every  size  would
+               need other pixmaps for the balls.
+
+
+   DDEEBBUUGG
+       --mmooddee _n selects  the  update mode for the animation in the
+               deluxe version of pool.  There  are  3  (internal)
+               different  implementations  of the ball animation,
+               which depend on the implementation  of  some  spe-
+               cific  routines  of  the x-server. Since mode 2 is
+               usually the  fastest  one,  it  is  turned  on  by
+               default.
+
+       --cchhkkmmooddee
+               runs  a  small benchmark with the available update
+               modes. If a mode other  than  the  second  is  the
+               fastest on the current machine, you should use the
+               mode-option to select it.
+
+       --ttiimmee _s stop process after _s seconds
+
+       --ddeemmoo   demonstration (without pockets). By the way, there
+               are  some  tiny meters on the bottom of the screen
+               (when using the full screen  and  the  binary  was
+               compiled  with statistic features), which have the
+               following meanings:
+
+               rate:   shows the number of cycles per  second.  A
+                       cycle  means  the loop for doing collision
+                       detection  and  recomputing  the   corrent
+                       position of all objects.
+
+               moves:  show  the  number of ball moves, that were
+                       neccessary in one seconds. If all  objects
+
+
+
+X Version 11               18 July 1995                         4
+
+
+
+
+
+flying(6)                                               flying(6)
+
+
+                       are  moving, this would be <object number>
+                       x <rate>
+
+               offset: if shown, it tells you, how much the  real
+                       time  has gone ahead of the current inter-
+                       nal  calculation  time.  It  should  never
+                       light  up during the game, except probably
+                       at the first shot into the triangle.
+
+       --mmaaxxssppeeeedd
+               the collision calculation is done  only  in  those
+               moments,  when  a  collision  takes  place. In the
+               intermediate time, only the  motion  graphics  are
+               updated  as  fast as possible. The switch disables
+               that intermediate calculation to get measures  for
+               the  speed  of  the  collision calculation.  (Good
+               combinations to check the speed  of  your  machine
+               would be: -demo -maxspeed -time 10)
+
+       --pprreesseettss
+               shows  the current internal values of static vari-
+               ables on stdout.  The values  can  be  dynamically
+               altered  by  setting  them in the file _p_r_e_s_e_t_s_._t_x_t
+               with the same syntax as in this output.
+
+       There are many additional debugging options, when the exe-
+       cutable was compiled for debugging. They are shown when no
+       argument or -h is given at the commandline.  You  can  try
+       flying  -pool  -deluxe  Intro (if you're lucky) to see the
+       some information about the pixmap-usage.
+
+
+FFIILLEESS
+       presets.txt   file to overwrite internal static values
+
+       fly*-*.dta    files containing the pixmaps  for  the  ball
+                     animation  in deluxe-pool.  They are created
+                     automatically when they are missing.
+
+SSEEEE AALLSSOO
+       X(1), xhost(1)
+
+BBUUGGSS
+       As I told, this is a very uncompleted version without  any
+       rules, but you can perfectly play billard, so why worrying
+       ...
+
+       The friction is not exactly  integrated  in  the  computa-
+       tions,  since  that  would have cost too much performance.
+       Instead the objects move  without  friction  for  a  given
+       amount  of time. Then their speed is re-adjusted. When the
+       granularity gets smaller, the friction  gets  more  exact.
+       But  that  works against a caching-mechanism and therefore
+       would extremely increase computation time, if many objects
+
+
+
+X Version 11               18 July 1995                         5
+
+
+
+
+
+flying(6)                                               flying(6)
+
+
+       are on the table.
+
+       Spin is not implemented
+
+       There  seem  to  be problems, when moving objects directly
+       with the pointer (like in hockey or curling  or  with  the
+       right button in billard) when the host is not fast enough.
+       At least I can not use it on my 386.
+
+       There are some minor problems when drawing static parts of
+       the  screen.   Sometimes  they  are misplaced for 1 pixel,
+       e.g. there is a one pixel gap below the line  representing
+       the pocket
+
+       There is a problem in the start-shot of carrom. Due to the
+       weight of the striker, the other stones might  get  pushed
+       so  close together, that the collision detection will fail
+       and objects will overlap (or the algorithm gets stuck in a
+       loop, only to be escaped by entering 'q'). Sorry for that.
+
+       Usually, the program needs it's private colormap. To get a
+       nicer  appearance,  a  black  OverrideRedirect  window  is
+       placed above everything else  when  the  -root  option  is
+       given.  This  confuses some window managers and a struggle
+       for the colormap begins. If anythings else  fails,  flying
+       will  grab the server and installs the map on it's own ...
+
+
+CCOOPPYYRRIIGGHHTT
+       Copyright 1995, Helmut Hoenig, Mettmann/Bad Camberg
+
+       email (for any comments):
+               Helmut.Hoenig@hub.de
+
+       smail (for gifts):
+               Helmut Hoenig
+               Hopfenstrasse 8a
+               65520 Bad Camberg
+               GERMANY
+
+        ********************************************************
+
+           By the way, I am collecting banknotes! If you want
+            to join into my collection, get any bill of your
+           country, sign it on the backside and send it to me
+                   so I will pin it on my world map.
+            (Don't forget the exact location for the pin :-)
+          But you can also just send me a picture postcard ...
+
+        ********************************************************
+
+       Permission to use, copy, modify, and distribute this soft-
+       ware  for  any  purpose and without fee is hereby granted,
+       provided that the above copyright  notice  appear  in  all
+
+
+
+X Version 11               18 July 1995                         6
+
+
+
+
+
+flying(6)                                               flying(6)
+
+
+       copies.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+X Version 11               18 July 1995                         7
+
+

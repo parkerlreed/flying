@@ -1,0 +1,290 @@
+.TH flying 6 "18 July 1995" "X Version 11"
+.SH NAME
+flying \- pool/snooker/carrom/hockey/curling simulator
+.SH SYNOPSIS
+.B flying
+[-options ...]
+.SH DESCRIPTION
+.I flying
+was actually meant to be a test program to implement some classes
+to control flying objects on the screen. After the classes were implemented
+there was the need of some real tests and a game of billard was just
+the first idea. By now, many subgame-classes are already more or less
+completely defined. They can either be selected by the options or by making
+a link to the original with a special name. Unfortunately having so many
+subclasses means that the classes themselves can't be too complicated. (There's
+just too less time in the world :( ) Therefore the games don't have any rules
+yet. This means you have to play fair and watch your opponent.
+.PP
+Anyway, the main thing was animation and controlling and that works fine,
+especially with the
+.B -deluxe
+version of pool-billard. Since the main intention was to get an excellent
+billard game, I will mainly describe the pool-version in the following
+pages. The other subgames are similar to control (and there are no special
+rules anyway).
+
+.SH STATUS
+The flying package contains many subgames, that are more or less in an
+experimental stage. Here is a tiny summary of version 6
+
+.SS Pool, Snooker, Cannon
+As already mentioned above, pool is the most comprehensive subgame, especially due to the
+deluxe version. It is very playable even though spin is not implemented. Rules
+will have to be added in later revision.
+.SS Carrom
+Very similar to pool, just with another background (and more friction)
+.SS Hockey
+experimental air-hockey implementation (see option \fI-in2\fP to
+set the display for the input-pointer for the second player), which is worth
+looking at because of the unconventional control mechanism. The players
+have to select one of the big discs before they can play.
+.SS Curling
+experimental curling implementation, which is even more worth to look at
+because of the control: Hold the \fIleft\fP button to take one curl.
+Move it in the right direction and let it go...
+
+.SH "CONTROLS"
+The pointer (or pointers) run fully simultaenously and are like the hand of the
+players. At every time it's possible to pick one of the objects to select
+it as the cue-object (It should better be the cueball, if you don't want
+to lose some friends). After you have aimed in the desired direction there
+are 2 ways to play the ball:
+.IP easy: 10
+Press and hold down the \fIleft\fP button to increase the strength of your shot.
+Release the button to shoot. There is a maximum power! If you hold down the
+button too long, you will just make a very poor shot as a penalty.
+.PP
+.IP tricky: 10
+You might notice on that the queue stays on the table for a moment. This
+is a problem, if you are very close to the cushion. Then, the cueball
+might hits the queue again. Therefor you can alternatively gather power by
+pressing the \fIright\fP pointer button and shot by simultaenously pressing
+the \fIleft\fP button. When you release the \fIleft\fP button after the shot,
+the queue is removed from the table and you can therefore remove it earlier.
+.PP
+After shooting, you can only wait and see what will happen. By the way, there
+actually are some tiny rules implemented. The billard classes know, that
+cueballs shouldn't stay in the pocket after a shot. When they are back
+on the table, you can roll them to the position you like by using the
+\fIright\fP pointer button.
+.PP
+By the way, if you picked the wrong ball as the cue-object, you can get rid of
+it by just clicking the \fIright\fP button once.
+.PP
+To overcome the hurdle of the mouse resolution, you can use the \fImiddle\fP
+pointer button for fine adjustments. With that help, you can actually position
+the mouse in fractions of pixels. To make shoting a thrill, you've got to
+release the button again for shoting. (The fraction is stored in that case)
+.SS Summary
+.IP left 8
+select cueball
+.br
+introduce easy shot
+.br
+pick ball from pocket
+.PP
+.IP middle 8
+fine adjustment via interpixel motion
+.PP
+.IP right 8
+deselect cueball
+.br
+introduce tricky shot
+.br
+move ball
+.PP
+.SS Additional Key-Controls
+.IP SPACE 8
+reset game
+.PP
+.IP Q,Esc 8
+quit game
+.PP
+.IP R 8
+restart game
+.PP
+.IP ^L 8
+redraw screen
+.PP
+.SH OPTIONS
+.SS X11
+.TP 8
+.B -size \fIn\fP
+window size
+.TP
+.B -root
+full screen (the default)
+.TP
+.B -no_override
+don't use OverrideRedirect for the background window, when the
+-root option is used.
+.TP
+.B -no_grabs
+don't grab the server, when problems with the colormap occur.
+.TP
+.B -display  \fIname\fP
+the output-display (default is contents of $DISPLAY)
+.TP
+.B -in1  \fIname\fP
+name of the main display for input (default is: same as the output display)
+.TP
+.B -in2  \fIname\fP
+name of a second input display. If given, a second pointer object will
+be installed in the program and can be controlled by the pointer of
+the given display. (The pointer will get invisible on that display as it
+is grabbed anything)
+
+As for every display connection, you have to make sure that all displays
+are accessible from your host. (by using \fIxhost\fP ...)
+.TP
+.B -sound
+a subprocess is started, which gives some clicks when balls hit together,
+but the smooth motion gets distorted in that way, at least
+on my workstation.
+.SS ADDITIONAL
+.TP 8
+.B -deluxe
+a special version of the pool with animated balls by using hundreds of
+precalculated pixmaps. The construction of the pixmaps at game start
+is very time consuming. Therefore the computed pixmaps are cached in files
+\fIfly*-*.dta\fP in a special data-directory (usually just /tmp) for
+reusability.
+.TP
+.B -tv
+since the deluxe-option is default, this can be used to switch back to the
+set of TV-balls.
+.TP
+.B -ft \fIn\fP
+sets the size of the table in pool-billard to \fIn\fP foot. The value
+should be in a range of 6 to 9 feet. If not given, the size is selected
+randomly, except in the deluxe-version, where it default to 8 feet.
+This was done because every size would need other pixmaps for the balls.
+
+.SS DEBUG
+.TP 8
+.B -mode \fIn\fP
+selects the update mode for the animation in the deluxe version of pool.
+There are 3 (internal) different implementations of the ball animation, which
+depend on the implementation of some specific routines of the x-server. Since
+mode 2 is usually the fastest one, it is turned on by default.
+.TP 8
+.B -chkmode
+runs a small benchmark with the available update modes. If a mode other
+than the second is the fastest on the current machine, you should use the
+mode-option to select it.
+.TP 8
+.B -time  \fIs\fP
+stop process after \fIs\fP seconds
+.TP
+.B -demo
+demonstration (without pockets). By the way, there are some tiny meters on the
+bottom of the screen (when using the full screen and the binary was compiled
+with statistic features), which have the following
+meanings:
+.RS 8
+.TP 8
+rate:
+shows the number of cycles per second. A cycle means the loop for doing
+collision detection and recomputing the corrent position of all objects.
+.TP
+moves:
+show the number of ball moves, that were neccessary in one seconds. If all
+objects are moving, this would be <object number> x <rate>
+.TP
+offset:
+if shown, it tells you, how much the real time has gone ahead of the current
+internal calculation time. It should never light up during the game, except
+probably at the first shot into the triangle.
+.RE
+.TP 8
+.B -maxspeed
+the collision calculation is done only in those moments, when a collision
+takes place. In the intermediate time, only the motion graphics are updated as
+fast as possible. The switch disables that intermediate calculation to get
+measures for the speed of the collision calculation.
+(Good combinations to check the speed of your machine would be: -demo -maxspeed -time 10)
+.TP
+.B -presets
+shows the current internal values of static variables on stdout.
+The values can be dynamically altered by setting them in the file
+\fIpresets.txt\fP with the same syntax as in this output.
+.PP
+There are many additional debugging options, when the executable was compiled
+for debugging. They are shown when no argument or -h is given at the
+commandline. You can try flying -pool -deluxe Intro (if you're lucky) to see
+the some information about the pixmap-usage.
+.PP
+.SH FILES
+.TP 14
+presets.txt
+file to overwrite internal static values
+.TP
+fly*-*.dta
+files containing the pixmaps for the ball animation in deluxe-pool.
+They are created automatically when they are missing.
+.SH "SEE ALSO"
+X(1), xhost(1)
+.SH BUGS
+As I told, this is a very uncompleted version without any rules, but
+you can perfectly play billard, so why worrying ...
+
+The friction is not exactly integrated in the computations, since
+that would have cost too much performance. Instead the objects move without
+friction for a given amount of time. Then their speed is re-adjusted. When the
+granularity gets smaller, the friction gets more exact. But that works against
+a caching-mechanism and therefore would extremely increase computation time,
+if many objects are on the table.
+
+Spin is not implemented
+
+There seem to be problems, when moving objects directly with the pointer (like
+in hockey or curling or with the right button in billard) when the host
+is not fast enough. At least I can not use it on my 386.
+
+There are some minor problems when drawing static parts of the screen.
+Sometimes they are misplaced for 1 pixel, e.g. there is a one pixel gap below
+the line representing the pocket
+
+There is a problem in the start-shot of carrom. Due to the weight of the
+striker, the other stones might get pushed so close together, that the
+collision detection will fail and objects will overlap (or the algorithm
+gets stuck in a loop, only to be escaped by entering 'q'). Sorry for that.
+
+Usually, the program needs it's private colormap. To get a nicer appearance,
+a black OverrideRedirect window is placed above everything else when the
+-root option is given. This confuses some window managers and a struggle for
+the colormap
+begins. If anythings else fails, flying will grab the server and installs the
+map on it's own ...
+
+.SH COPYRIGHT
+Copyright 1995, Helmut Hoenig, Mettmann/Bad Camberg
+.nf
+.TP 8
+email (for any comments):
+Helmut.Hoenig@hub.de
+.TP 5
+smail (for gifts):
+   Helmut Hoenig
+   Hopfenstrasse 8a
+   65520 Bad Camberg
+   GERMANY
+.PP
+.ce 8
+********************************************************
+
+By the way, I am collecting banknotes! If you want 
+to join into my collection, get any bill of your
+country, sign it on the backside and send it to me
+so I will pin it on my world map.
+(Don't forget the exact location for the pin :-)
+But you can also just send me a picture postcard ...
+
+********************************************************
+.fi
+.PP
+Permission to use, copy, modify, and distribute this
+software for any purpose and without
+fee is hereby granted, provided that the above copyright
+notice appear in all copies.

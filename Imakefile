@@ -1,0 +1,48 @@
+
+XCOMM #####  where to put temporary data and pixmap files ...
+DATA_DIRECTORY = \"/tmp\"
+
+XCOMM #####  parameter type of the system call select(), which usually is
+XCOMM #####  fd_set, but at least on HP-UX, it is int ... I am still
+XCOMM #####  searching for a better way to solve this problem so please
+XCOMM #####  tell me, if you know it ...
+FDS_TYPE       = ''
+XCOMM # FDS_TYPE = '(int*)'
+
+XCOMM #####  There is an optimization bug in gcc-2.7.0. Therefore the CXX_NOOPT
+XCOMM #####  macro should be set when using gcc-2.7.0 to create target
+XCOMM #####  pball.o without optimization
+CXX          = gcc
+XCOMM # CXX_NOOPT    = -O0
+
+XCOMM #######################################################################
+
+OBJS	= arcs.o ball.o billard.o cannon.o carrom.o curling.o dynobj.o \
+		game.o global.o goal.o graph.o hockey.o keeper.o logfile.o \
+		main.o mover.o object.o objtab.o pball.o pcon.o pocket.o \
+		pool.o pool8.o real.o rgb.o snooker.o vec2.o vec3.o vector.o \
+		wall.o xbench.o xsound.o
+
+SRCS = $(OBJS:.o=.C)
+
+DEFINES = -DDATA_DIRECTORY=$(DATA_DIRECTORY) -DFDS_TYPE=$(FDS_TYPE)
+
+CCOPTIONS = #-Wall -g
+
+LOCAL_LIBRARIES = -lX11 -lm
+
+flying: $(OBJS) $(DEPLIBS)
+	$(RM) $@
+	$(CXX) -o $@ $(OBJS) $(LDOPTIONS) $(LOCAL_LIBRARIES) $(LDLIBS) $(EXTRA_LOAD_FLAGS)
+
+InstallProgram(flying,$(BINDIR))
+InstallManPage(flying,$(MANDIR))
+DependTarget()
+CleanTarget()
+
+.C.o:
+	$(CXX) $(CFLAGS) -c $< -o $@
+
+pball.o:
+	$(CXX) $(CFLAGS) $(CXX_NOOPT) -c $< -o $@
+
