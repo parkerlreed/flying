@@ -15,3 +15,6 @@ Enjoy
 
 ![image](https://github.com/user-attachments/assets/71875c90-11a4-4b69-9609-ee2023982e79)
 
+Thanks to Cathode Ray Dude for unearthing this from RedHat 6.1
+
+https://www.youtube.com/watch?v=HISlD11Ijd4
