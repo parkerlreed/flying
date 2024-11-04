@@ -114,7 +114,7 @@ const Real Carrom::TAreaHeight() const		{ return area_height+2.0*Cushion; }
 void Carrom::Setup( double x, double y )
 {
 static int	nc[5] = { 3, 4, 5, 4, 3 };		// Steine pro Spalte
-static t[19] = { -1,  1, -2,					// Steinverteilung
+static int t[19] = { -1,  1, -2,					// Steinverteilung
 					 2, -3,  3,  4,
 				 -4,  5,  0, -5, -6,
 					 6, -7,  7,  8,

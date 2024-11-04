@@ -6,7 +6,7 @@
 //
 class PBallNorm : public PBallTop {
 	public:
-		PBallNorm( PBallType mode=BillardQueue, char *display=0l );
+		PBallNorm( PBallType mode=BillardQueue, const char *display=0l );
 		~PBallNorm();
 		static void WaitForEvents();
 
@@ -47,7 +47,7 @@ class PBallNorm : public PBallTop {
 
 class PBall : public PBallNorm {
 	public:
-		PBall( PBallType mode=BillardQueue, char *display=0L );
+		PBall( PBallType mode=BillardQueue, const char *display=0L );
 		virtual ~PBall();
 
 

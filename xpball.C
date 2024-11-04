@@ -17,7 +17,7 @@ double PBallNorm::next_frame = 0.0;
 double PBallNorm::last_frame = 0.0;
 
 
-PBallNorm::PBallNorm( PBallType type, char *disp_name ) :
+PBallNorm::PBallNorm( PBallType type, const char *disp_name ) :
 	PBallTop( type )
 {
 //
@@ -139,7 +139,7 @@ PBallTop *current;
 #	undef	 FDS_TYPE
 #	define FDS_TYPE	(int*)
 #else
-	struct fd_set	readfds;
+	fd_set	readfds;
 #endif
 
 	FD_ZERO( &readfds );
@@ -344,7 +344,7 @@ void PBallNorm::EndQueue() {
 
 // ------ PBall -------------------------------------------------------------
 
-PBall::PBall( PBallType type, char *disp_name ) :
+PBall::PBall( PBallType type, const char *disp_name ) :
 	PBallNorm( type, disp_name )
 {
 	zoom  = 0;

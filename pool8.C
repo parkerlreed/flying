@@ -56,7 +56,7 @@ Pool8::~Pool8() {
 
 void Pool8::Triangle( const Vec2 &vec )
 {
-static t[15] = {		1,
+static int t[15] = {		1,
 						-1, -2,
 					  2,  0,  3,
 				  -3,  4, -4, -5,
@@ -186,7 +186,7 @@ Pool9::~Pool9() {
 
 void Pool9::Triangle( const Vec2 &vec )
 {
-static t[9] = {		1,
+static int t[9] = {		1,
 						 2,  3,
 					  4, -1,  5,
 				       6,  7,

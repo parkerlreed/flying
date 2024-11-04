@@ -7,7 +7,7 @@ DATA_DIRECTORY = '"/tmp"'
 ### compiler section
 ### for debugging, there might be the additional flags -DDEBUG and -DSTATISTICS
 ### the -O2 option doesn't work correct on gcc-2.7.0
-CXX			= gcc -Wall -fstrength-reduce -fpcc-struct-return
+CXX			= gcc -Wall -fstrength-reduce -fpcc-struct-return -Wno-narrowing
 CXXFLAGS	   = -O1
 #CXX			= CC
 #CXXFLAGS	= -O
@@ -36,7 +36,7 @@ LDFLAGS		= -L$(XLIB_DIR)
 
 LD	      = $(CXX)
 
-LIBS	      = -lX11 -lm
+LIBS	      = -lX11 -lm -lstdc++
 
 OBJS	= arcs.o \
 		ball.o \
